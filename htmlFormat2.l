@@ -1,52 +1,28 @@
 	int indents = 0;
-%x indento
-
+%s textbefore 
 %%
-\n		{
-			printf("\n");
-			int i;
-			for( i = 0; i<indents; i++){
-				printf("\t");
-			}
-		}
-<indento>\n	{
-			BEGIN 0;
-		}
-\<		{
-			printf("\n");
-			int i;
-			for( i = 0; i<indents; i++){
-				printf("\t");
-			}
-			printf("<");
-			++indents;
-		}	
-\<\/		{
-			//tengo que indentar la linea con intents-1.
-			--indents;	
-			printf("\n");
-			int i;
-			for( i = 0; i<indents; i++){
-				printf("\t");
-			}
-			printf("</");
-		}	
-\>		{
-			printf(">");
-			printf("\n");
-			int i;
-			for( i = 0; i<indents; i++){
-				printf("\t");
-			}
-			BEGIN indento;
-		}
-.		{
-			printf("%s", yytext);
-			BEGIN 0;
-		}
+<textbefore>\<                      endline(); imprimirIndent(); imprimir(); indents++; BEGIN 0; 
+<textbefore>\<\/                    endline(); indents--; imprimirIndent(); imprimir(); BEGIN 0; 
+\<                                  imprimir(); indents++;  
+\>                                  imprimir(); endline(); imprimirIndent(); BEGIN 0; 
+\<\/                                indents--; imprimirIndent(); imprimir(); 
+\n                                   
+.                                   imprimir(); BEGIN textbefore; 
 %%
- 	public void imprimir (
-	main()
+    void endline(){
+        printf("\n"); 
+    }
+    void imprimirIndent() {
+        int i;
+        for( i = 0; i<indents; i++){
+            printf("\t");
+        }
+    }
+ 	void imprimir (){
+        printf("%s",yytext);
+    }
+    
+    int	main()
 	{
 		yylex();
 	}

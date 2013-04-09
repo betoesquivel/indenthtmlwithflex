@@ -368,8 +368,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 7
-#define YY_END_OF_BUFFER 8
+#define YY_NUM_RULES 8
+#define YY_END_OF_BUFFER 9
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -379,8 +379,8 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[14] =
     {   0,
-        0,    0,    0,    0,    8,    6,    1,    3,    5,    7,
-        2,    4,    0
+        0,    0,    0,    0,    9,    7,    6,    3,    4,    1,
+        5,    2,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -422,26 +422,26 @@ static yyconst flex_int32_t yy_meta[6] =
 
 static yyconst flex_int16_t yy_base[16] =
     {   0,
-        0,    0,    9,    8,    9,   12,   12,    0,   12,   12,
-       12,   12,   12,    5,    6
+        0,    0,    5,    0,    8,   10,   10,    0,   10,    0,
+       10,   10,   10,    5,    4
     } ;
 
 static yyconst flex_int16_t yy_def[16] =
     {   0,
-       13,    1,   14,   14,   13,   13,   13,   15,   13,   13,
+       13,    1,    1,    3,   13,   13,   13,   14,   13,   15,
        13,   13,    0,   13,   13
     } ;
 
-static yyconst flex_int16_t yy_nxt[18] =
+static yyconst flex_int16_t yy_nxt[16] =
     {   0,
-        6,    7,    6,    8,    9,   10,   10,   12,   13,   11,
-       11,    5,   13,   13,   13,   13,   13
+        6,    7,    6,    8,    9,   12,   11,   13,   10,    5,
+       13,   13,   13,   13,   13
     } ;
 
-static yyconst flex_int16_t yy_chk[18] =
+static yyconst flex_int16_t yy_chk[16] =
     {   0,
-        1,    1,    1,    1,    1,   14,   14,   15,    5,    4,
-        3,   13,   13,   13,   13,   13,   13
+        1,    1,    1,    1,    1,   15,   14,    5,    3,   13,
+       13,   13,   13,   13,   13
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -460,11 +460,11 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "htmlFormat2.l"
 int indents = 0;
-
+ 
 #line 465 "lex.yy.c"
 
 #define INITIAL 0
-#define indento 1
+#define textbefore 1
 
 #ifndef YY_NO_UNISTD_H
 /* Special case for "unistd.h", since it is non-ANSI. We include it way
@@ -649,7 +649,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 4 "htmlFormat2.l"
+#line 3 "htmlFormat2.l"
 
 #line 655 "lex.yy.c"
 
@@ -710,7 +710,7 @@ yy_match:
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 12 );
+		while ( yy_base[yy_current_state] != 10 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -735,81 +735,49 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
-/* rule 1 can match eol */
 YY_RULE_SETUP
-#line 5 "htmlFormat2.l"
-{
-			printf("\n");
-			int i;
-			for( i = 0; i<indents; i++){
-				printf("\t");
-			}
-		}
+#line 4 "htmlFormat2.l"
+endline(); imprimirIndent(); imprimir(); indents++; BEGIN 0; 
 	YY_BREAK
 case 2:
-/* rule 2 can match eol */
 YY_RULE_SETUP
-#line 12 "htmlFormat2.l"
-{
-			BEGIN 0;
-		}
+#line 5 "htmlFormat2.l"
+endline(); indents--; imprimirIndent(); imprimir(); BEGIN 0; 
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 15 "htmlFormat2.l"
-{
-			printf("\n");
-			int i;
-			for( i = 0; i<indents; i++){
-				printf("\t");
-			}
-			printf("<");
-			++indents;
-		}	
+#line 6 "htmlFormat2.l"
+imprimir(); indents++;  
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 24 "htmlFormat2.l"
-{
-			//tengo que indentar la linea con intents-1.
-			--indents;	
-			printf("\n");
-			int i;
-			for( i = 0; i<indents; i++){
-				printf("\t");
-			}
-			printf("</");
-		}	
+#line 7 "htmlFormat2.l"
+imprimir(); endline(); imprimirIndent(); BEGIN 0; 
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 34 "htmlFormat2.l"
-{
-			printf(">");
-			printf("\n");
-			int i;
-			for( i = 0; i<indents; i++){
-				printf("\t");
-			}
-			BEGIN indento;
-		}
+#line 8 "htmlFormat2.l"
+indents--; imprimirIndent(); imprimir(); 
 	YY_BREAK
 case 6:
+/* rule 6 can match eol */
 YY_RULE_SETUP
-#line 43 "htmlFormat2.l"
-{
-			printf("%s", yytext);
-			BEGIN 0;
-		}
+#line 9 "htmlFormat2.l"
+
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 47 "htmlFormat2.l"
+#line 10 "htmlFormat2.l"
+imprimir(); BEGIN textbefore; 
+	YY_BREAK
+case 8:
+YY_RULE_SETUP
+#line 11 "htmlFormat2.l"
 ECHO;
 	YY_BREAK
-#line 811 "lex.yy.c"
+#line 779 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
-case YY_STATE_EOF(indento):
+case YY_STATE_EOF(textbefore):
 	yyterminate();
 
 	case YY_END_OF_BUFFER:
@@ -1806,10 +1774,23 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 47 "htmlFormat2.l"
+#line 11 "htmlFormat2.l"
 
 
-	main()
+    void endline(){
+        printf("\n"); 
+    }
+    void imprimirIndent() {
+        int i;
+        for( i = 0; i<indents; i++){
+            printf("\t");
+        }
+    }
+ 	void imprimir (){
+        printf("%s",yytext);
+    }
+    
+    int	main()
 	{
 		yylex();
 	}
