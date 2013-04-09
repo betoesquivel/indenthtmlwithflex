@@ -1,10 +1,11 @@
 	int indents = 0;
 %s textbefore 
+%s indento
 %%
 <textbefore>\<                      endline(); imprimirIndent(); imprimir(); indents++; BEGIN 0; 
 <textbefore>\<\/                    endline(); indents--; imprimirIndent(); imprimir(); BEGIN 0; 
-\<                                  imprimir(); indents++;  
-\>                                  imprimir(); endline(); imprimirIndent(); BEGIN 0; 
+\<                                  imprimirIndent(); imprimir(); indents++;  
+\>                                  imprimir(); endline(); imprimirIndent(); BEGIN 0;
 \<\/                                indents--; imprimirIndent(); imprimir(); 
 \n                                   
 .                                   imprimir(); BEGIN textbefore; 
